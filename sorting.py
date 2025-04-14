@@ -1,4 +1,5 @@
 import os
+import csv
 
 
 def read_data(file_name):
@@ -16,24 +17,41 @@ def read_data(file_name):
         n=0
         for row in reader:
             if n == 0:
-                parts = row.split(",")
+                parts = row
                 slovnik[parts[0]] = []
                 slovnik[parts[1]] = []
                 slovnik[parts[2]] = []
             else:
-                casti = row.split(",")
+                casti = row
                 slovnik[parts[0]].append(int(casti[0]))
                 slovnik[parts[1]].append(int(casti[1]))
                 slovnik[parts[2]].append(int(casti[2]))
             n += 1
     return slovnik
 
+def selection_sort(seznam, directions = "ascending"):
+    """
+
+    :param seznam: seznam s numeric array
+    :param str directions: string indicating sorting direction: ascending, descending
+    :return: sorted seznam
+    """
+    for n in range(len(seznam)):
+        idx = n
+        for i in range(n+1,len(seznam)):
+            if (directions == "ascending" and seznam[i] < seznam[idx]) or (directions == "descending" and seznam[i] > seznam[idx]):
+                idx = i
+        seznam[n], seznam[idx] = seznam[idx], seznam[n]
+    return seznam
 
 
 
 
 def main():
-    slovnik = read_data(numbers.csv)
+    slovnik = read_data("numbers.csv")
+    seznam = selection_sort(slovnik["series_1"])
+    print(seznam)
+    print(slovnik)
     pass
 
 
